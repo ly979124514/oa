@@ -1,5 +1,4 @@
 import * as types from '../mutation-types'
-import fs from 'fs'
 
 var dept_a = [];
 var dept_b = [];
@@ -9,7 +8,7 @@ var dept_d = [];
 const state = {
    logOn: false,
    HttpServer: null,
-   contracts: {};
+   contracts: {}
 }
 
 const getters = {
@@ -37,7 +36,7 @@ const mutations = {
      },
      [types.CONNECT_SERVER] (state, httpServer) {
         state.HttpServer = httpServer
-     }
+     },
      [types.WRITE_JSON] (state, response_data) {
        for ( var index = 0; index < response_data.length; index++)
        {
