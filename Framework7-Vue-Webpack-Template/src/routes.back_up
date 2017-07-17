@@ -1,0 +1,77 @@
+export default [
+  {
+      path: '/content/',
+      component: require('./pages/email/content.vue')
+  },
+  {
+      path: '/about/',
+      component: require('./pages/test/about.vue')
+  },
+  {
+      path: '/form/',
+      component: require('./pages/test/form.vue')
+  },
+  {
+      path: '/tabbar/',
+      component: require('./pages/test/tabbar.vue'),
+      tabs: [
+        {
+          path: '/',
+          tabId: 'tab1',
+          component: require('./pages/test/tab1.vue')
+        },
+        {
+          path: '/tab2/',
+          tabId: 'tab2',
+          component: require('./pages/test/tab2.vue')
+        },
+        {
+          path: '/tab3/',
+          tabId: 'tab3',
+          component: require('./pages/test/tab3.vue')
+        }
+      ]
+  },
+  {
+      path: '/notice/',
+      component: require('./pages/notice/notice.vue')
+  },
+  {
+      path: '/user/',
+      component: require('./pages/user/user.vue')
+  },
+  {
+      path: '/email/',
+      component: require('./pages/email/email-content.vue'),
+      tabs: [
+        {
+          path: '/',
+          tabId: 'tabReci',
+          component: require('./pages/email/reci.vue')
+        },
+        {
+          path: '/send/',
+          tabId: 'tabSend',
+          component: require('./pages/email/send.vue')
+        },
+        {
+          path: '/gara/',
+          tabId: 'tabGara',
+          component: require('./pages/email/gara.vue')
+        },
+        {
+          path: '/draf/',
+          tabId: 'tabDraf',
+          component: require('./pages/email/draf.vue')
+        },
+      ]
+  },
+  {
+      path: '/schedule/',
+      component: require('./pages/schedule/schedule.vue')
+  },
+  {
+      path: '/work/',
+      component: require('./pages/work/wstation.vue')
+  }
+]

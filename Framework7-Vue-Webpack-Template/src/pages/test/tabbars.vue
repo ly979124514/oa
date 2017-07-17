@@ -1,0 +1,9 @@
+<template>
+ <f7-view>
+  <f7-pages>
+   <f7-page>
+     <p>123</p>
+   </f7-page>
+  </f7-pages>
+ </f7-view>
+</template>

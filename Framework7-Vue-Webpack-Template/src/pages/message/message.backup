@@ -1,0 +1,72 @@
+<template>
+ <f7-page toolbar-fixed>
+  <f7-navbar back-link="Back" title="短消息" sliding></f7-navbar>
+    <f7-messages v-show="userStatus">
+     <f7-message v-for="message in messages"
+      :text="message.text"
+      :label="message.label"
+      :date="message.date"
+      :name="this.logUser"
+      :avatar="message.avatar"
+      :type="message.type"
+      :day="message.day"
+      :time="message.time"
+      @click="onClick"
+      @click:text="onTextClick"
+      @click:name="onNameClick"
+      @click:avatar="onAvatarClick"
+      ></f7-message>
+    </f7-messages>
+    <f7-messagebar placeholder="Message" send-link="Send" @submit="onSubmit" v-show="userStatus"></f7-messagebar>
+    <h1 v-show="!userStatus">LOGON PLEASE!!</h1>
+ </f7-page>
+</template>
+<script>
+import { mapGetters,mapActions } from 'vuex'
+export default {
+   data: function () {
+    return {
+      name: '',
+      avatar: '',
+      messages: [
+          
+      ]
+    }
+   },
+   computed: {
+     ...mapGetters({
+       userStatus: 'logOn',
+       logUser: 'logUser'
+     })
+   },
+   methods: {
+     onClick: function (event) {
+       console.log('message click');
+     },
+     onAvatarClick: function () {
+       console.log('avatar-click');
+     },
+     onTextClick: function () {
+       console.log('text-click');
+     },
+     onNameClick: function() {
+       console.log('name-click');
+     },
+     onSubmit: function (text,clear) {
+       if (text.trim().length === 0) return;
+       this.messages.push({
+         name: this.name,
+         avatar: this.avatar,
+         text: text,
+         date: (function () {
+           var now = new Date();
+           var hours = now.getHours();
+           var minutes = now.getMinutes();
+           return hours + ':' + minutes;
+         })()
+       });
+       clear();
+     }
+   }
+ }
+</script>

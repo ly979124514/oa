@@ -1,0 +1,50 @@
+<template>
+   <f7-page>
+    <f7-navbar>
+      <f7-nav-left>
+        <f7-link href='/email/'>Back</f7-link>
+      </f7-nav-left>
+      <f7-nav-center sliding>
+         收件箱 
+      </f7-nav-center>
+    </f7-navbar>
+    <button @click="getData">TEST</button>
+   </f7-page>
+</template>
+<script>
+export default {
+  data () {
+    return {
+       show_counter: 0,
+       total_counter:0,
+       show_items: [],
+       total_items:[]
+    }
+  },
+  methods: {
+    getData: function() {
+       this.$http.get('http://192.168.1.18:8081/cat/getAllEmail').then(function(response){
+          console.log(response.data[0].email_content);
+          for(this.show_counter;this.show_counter < 5;this.show_counter++)
+          {
+                 console.log('show_items: '+response.data[this.show_counter]);
+                 this.show_items.push(response.data[this.show_counter]);
+          }
+          for(this.total_counter;this.total_counter < response.data.length; this.total_counter)
+          {
+                 this.total_items.push(response.data[this.total_counter])
+          }
+       })
+      console.log('show_items: '+show_items);
+      console.log('total_items: '+total_items);
+    },
+    onRefresh: function (event, done) {
+      this.getData();
+      setTimeout(function () {
+        this.show_items.push(response.data[this.show_counter++]);
+        done();
+      },2000);
+    }
+  }
+}
+</script>

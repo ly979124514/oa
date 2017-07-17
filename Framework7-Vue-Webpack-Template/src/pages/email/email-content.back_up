@@ -1,0 +1,17 @@
+<template>
+  <f7-page navbar-fixed tabbar-fixed toolbar-through>
+         <f7-block tabs>
+           <f7-tab route-tab-id="tabReci" />
+           <f7-tab route-tab-id="tabSend" />
+           <f7-tab route-tab-id="tabGara" />
+           <f7-tab route-tab-id="tabDraf" />
+         </f7-block>
+         <f7-toolbar tabbar labels>
+           <f7-link href="/email/" route-tab-link='#tabReci' text="收件箱"></f7-link>
+           <f7-link href="/email/send" route-tab-link='#tabSend' text="已发送"></f7-link>
+           <f7-link href="/email/gara" route-tab-link='#tabGara' text="垃圾箱"></f7-link>
+	   <f7-link href="/email/draf" route-tab-link='#tabDraf' text="草稿箱"></f7-link>
+           <f7-link active @click="$router.load({url: '/content/'})" text="测试"></f7-link>
+         </f7-toolbar>
+   </f7-page>
+</template>
