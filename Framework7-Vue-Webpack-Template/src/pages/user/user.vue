@@ -54,7 +54,6 @@ data () {
       userStatus: 'logOn',
       logUser: 'logUser',
       HttpServer: 'HttpServer',
-      contracts: 'contracts'
    })
  },
  methods: {
@@ -82,6 +81,7 @@ data () {
      this.$http.get('http://172.31.0.31:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
     // this.$http.get('http://192.168.1.10:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
            console.log(response.data);
+           this.$store.dispatch('write_json',response.data);
            if(this.username == response.data.userName && this.passwd == response.data.userPasswd)
            {
                // preState = true;
