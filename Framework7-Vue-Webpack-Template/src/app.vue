@@ -53,7 +53,6 @@
 </template>
 <script>
 import { mapGetters,mapActions } from 'vuex'
-const remote = window.require('electron').remote
 export default {
   data: function(){
     return {
