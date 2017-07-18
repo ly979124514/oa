@@ -48,6 +48,7 @@ data () {
  },
  created () {
    console.log('create()'+this._username);
+   this.getAllUser();
  },
  computed: {
    ...mapGetters({
@@ -61,7 +62,7 @@ data () {
       checkout: 'checkout',
       checkUserName: 'checkUserName',
       getHttpServer: 'getHttpServer',
-      write_json: 'write_json'
+      write2json: 'write2json'
    }),
    test: function() {
        console.log(this._username);
@@ -77,17 +78,21 @@ data () {
        this.httpServer.emit('showLogin',hostInfo)
        this.$store.dispatch('getHttpServer',this.httpServer);
    },
+   getAllUser: function () {
+     this.$http.get('http://172.31.0.31:8081/cat/getAllUser').then(function(response){
+         this.$store.dispatch('write2json', response.data);
+     })
+   },
    Logon: function () {
      this.$http.get('http://172.31.0.31:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
     // this.$http.get('http://192.168.1.10:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
-           console.log(response.data);
-           this.$store.dispatch('write_json',response.data);
+           //console.log(response.data);
            if(this.username == response.data.userName && this.passwd == response.data.userPasswd)
            {
                // preState = true;
                // state.setState({flag:preState})
                 console.log(this.username);
-                console.log(response.data);
+                //console.log(response.data);
                 this.hostInfo.username = this.username;
                 this.hostInfo.userId = response.data.id
                 this.hostInfo.mailAddress = response.data.mailAddress;
