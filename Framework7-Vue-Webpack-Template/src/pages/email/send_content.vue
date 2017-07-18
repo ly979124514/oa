@@ -4,7 +4,8 @@
    <f7-list form>
      <f7-list-item>
        <f7-label>收件人</f7-label>
-       <f7-input @click="test" id="recieverLabel" type="text" v-model="reciever"/>
+       <f7-input @click="test" ref="reciever" type="text" v-model="reciever"/>
+       <!--<f7-input open-popup="#popover-list" />-->
      </f7-list-item>
      <f7-list-item>
        <f7-label>时间</f7-label>
@@ -19,14 +20,14 @@
        <f7-input type="textarea" v-model="content"/>
      </f7-list-item>
      <f7-list-item>
-        <f7-button @click="sendMessage">发送</f7-button><f7-button>返回</f7-button>
+        <f7-button @click="sendMessage">发送</f7-button><f7-button>返回</f7-button><f7-button @click="test">test</f7-button>
      </f7-list-item>
    </f7-list>
    <f7-popup id="popover-list">
       <f7-list contacts>
-        <f7-list-group v-for="(group,key) in contacts">
+        <f7-list-group v-for="(group,key) in this.contracts">
           <f7-list-item :title="key" group-title></f7-list-item>
-          <f7-list-item v-for="name in group" :title="name"></f7-list-item>
+          <f7-list-item v-for="name in group" :title="name" @click=""></f7-list-item>
         </f7-list-group>
       </f7-list>
    </f7-popup>
@@ -41,12 +42,13 @@ export default {
       apiUri:'http://172.31.0.31:8081/cat/sendMail',
       jsonMail:{"emailContent":"","emailReciever":"","emailSender":"ly979124514@163.com","emailDate":"","emailTitle":""},
       json2String:'',
-      contacts: {
-      }
     }
   },
   computed: {
-    logUser: 'logUser'
+    ...mapGetters({
+        logUser: 'logUser',
+        contracts: 'contracts'
+    })
   },
   methods : {
     sendMessage: function(){
@@ -82,7 +84,10 @@ export default {
         })
     },
     test: function () {
-       f7.alert("你按了输入框");
+         this.$f7.popup("#popover-list");
+    },
+    getEaddress: function (name) {
+         this.$refs.reciever = name;
     },
     getUserList: function () {
        this.$http.get('http://172.31.0.31:8081/cat/getAllUser').then(function(response){
