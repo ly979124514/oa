@@ -38,30 +38,32 @@ const mutations = {
         state.HttpServer = httpServer
      },
      [types.WRITE_JSON] (state, response_data) {
+       console.log(response_data);
        for ( var index = 0; index < response_data.length; index++)
        {
-          if(response_data[index].Dept == '科室1')
+          if(response_data[index].USER_DEPT == "科室1")
           {
-             dept_a.push(response_data[index].username);
+             dept_a.push(response_data[index].USER_NAME);
           }
-          if(response_data[index].Dept == '科室2')
+          if(response_data[index].USER_DEPT == "科室2")
           {
-             dept_a.push(response_data[index].username);
+             dept_b.push(response_data[index].USER_NAME);
           }
-          if(response_data[index].Dept == '科室3')
+          if(response_data[index].USER_DEPT == "科室3")
           {
-             dept_a.push(response_data[index].username);
+             dept_c.push(response_data[index].USER_NAME);
           }
-          if(response_data[index].Dept == '科室4')
+          if(response_data[index].USER_DEPT == "科室4")
           {
-             dept_a.push(response_data[index].username);
+             dept_d.push(response_data[index].USER_NAME);
           }
        }
-       contracts.dept_a = dept_a;
-       contracts.dept_b = dept_b;
-       contracts.dept_c = dept_c;
-       contracts.dept_d = dept_d;
-       console.log(contracts);
+       state.contracts.科室1 = dept_a;
+       state.contracts.科室2 = dept_b;
+       state.contracts.科室3 = dept_c;
+       state.contracts.科室4 = dept_d;
+       console.log("contracts list :")
+       console.log(state.contracts);
   } 
 }
 
