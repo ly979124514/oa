@@ -4,6 +4,7 @@ var dept_a = [];
 var dept_b = [];
 var dept_c = [];
 var dept_d = [];
+var userMap = new Map();
 
 const state = {
    logOn: false,
@@ -43,19 +44,19 @@ const mutations = {
        {
           if(response_data[index].USER_DEPT == "科室1")
           {
-             dept_a.push(response_data[index].USER_NAME);
+             dept_a.push(response_data[index]);
           }
           if(response_data[index].USER_DEPT == "科室2")
           {
-             dept_b.push(response_data[index].USER_NAME);
+             dept_b.push(response_data[index]);
           }
           if(response_data[index].USER_DEPT == "科室3")
           {
-             dept_c.push(response_data[index].USER_NAME);
+             dept_c.push(response_data[index]);
           }
           if(response_data[index].USER_DEPT == "科室4")
           {
-             dept_d.push(response_data[index].USER_NAME);
+             dept_d.push(response_data[index]);
           }
        }
        state.contracts.科室1 = dept_a;
