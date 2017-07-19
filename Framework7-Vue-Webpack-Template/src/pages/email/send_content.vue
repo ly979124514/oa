@@ -27,7 +27,7 @@
       <f7-list contacts>
         <f7-list-group v-for="(group,key) in this.contracts">
           <f7-list-item :title="key" group-title></f7-list-item>
-          <f7-list-item v-for="name in group" :title="name" @click=""></f7-list-item>
+          <f7-list-item checkbox v-for="object in group" :title="object.USER_NAME" @click="getEaddress(object)"></f7-list-item>
         </f7-list-group>
       </f7-list>
    </f7-popup>
@@ -38,6 +38,7 @@ import { mapGetters,mapActions } from 'vuex'
 export default {
   data () {
     return {
+      reci_name : '',
       myDate : new Date(),
       apiUri:'http://172.31.0.31:8081/cat/sendMail',
       jsonMail:{"emailContent":"","emailReciever":"","emailSender":"ly979124514@163.com","emailDate":"","emailTitle":""},
@@ -48,7 +49,12 @@ export default {
     ...mapGetters({
         logUser: 'logUser',
         contracts: 'contracts'
-    })
+    }),
+    reciever: {
+       get: function () {
+          return this.reci_name;
+       }
+    }
   },
   methods : {
     sendMessage: function(){
@@ -86,8 +92,11 @@ export default {
     test: function () {
          this.$f7.popup("#popover-list");
     },
-    getEaddress: function (name) {
-         this.$refs.reciever = name;
+    getEaddress: function (object) {
+      //   this.$refs.reciever = object.USER_NAME;
+         this.reci_name = object.USER_NAME;
+         this.jsonMail.emailReciever= object.MAIL_ADDRESS;
+         this.$f7.closeModal();
     },
     getUserList: function () {
        this.$http.get('http://172.31.0.31:8081/cat/getAllUser').then(function(response){
