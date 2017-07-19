@@ -47,7 +47,6 @@ data () {
   }
  },
  created () {
-   console.log('create()'+this._username);
    this.getAllUser();
  },
  computed: {
