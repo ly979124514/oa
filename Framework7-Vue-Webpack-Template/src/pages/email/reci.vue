@@ -14,9 +14,9 @@
                     @click="$router.load({ url : '/content?title='+item.EMAIL_TITLE})"
       >-->
       <f7-list-item v-for="item in show_items" 
-                    :title="item.EMAIL_TITLE"
-                    :after="item.EMAIL_DATE"
-                    link='item.EMAIL_TITLE'
+                    :title="item.SUBJECT"
+                    :after="item.SEND_TIME"
+                    link='item.SUBJECT'
       ></f7-list-item> 
      </f7-list>
      <p style="text-align:center">下拉刷新</p>
@@ -26,6 +26,7 @@
 export default {
   data () {
     return {
+       limit: 20,
        show_counter: 0,
        total_counter:0,
        show_items: [],
@@ -35,13 +36,14 @@ export default {
   },
   methods: {
     getData: function() {
-       this.$http.get('http://172.31.0.31:8081/cat/getAllEmail').then(function(response){
-          for(this.show_counter;this.show_counter < 5;this.show_counter++)
+       this.$http.get('http://172.31.0.31:8081/oa/getAllMail').then(function(response){
+          for(this.show_counter;this.show_counter < limit;this.show_counter++)
           {
                  console.log('show_items: ');
                  console.log(response.data[this.show_counter]);
                  this.show_items.push(response.data[this.show_counter]);
           }
+          this.show_counter--;
           console.log('json length: '+response.data.length)
           for(this.total_counter;this.total_counter < response.data.length; this.total_counter++)
           {
@@ -58,10 +60,10 @@ export default {
       var self_total_counter = this.total_counter;
 //      self.show_items.push(self.total_items[this.show_counter++]);
       setTimeout(function () {
-        self_show_items.push(self_total_items[self_show_counter]);
+        self_show_items.push(self_total_items[self_show_counter+20]);
         done();
       },1000);
-      this.show_counter++;
+      this.show_counter+20;
     }
   }
 }

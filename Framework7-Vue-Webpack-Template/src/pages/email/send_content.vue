@@ -21,7 +21,9 @@
        <f7-input type="textarea" v-model="content"/>
      </f7-list-item>
      <f7-list-item>
-        <f7-button @click="sendMessage">发送</f7-button><f7-button @click="test">test</f7-button>
+        <f7-button @click="sendMessage">发送</f7-button>
+        <f7-button @click="sendMessage">保存到草稿箱</f7-button>
+        <f7-button @click="test">test</f7-button>
      </f7-list-item>
    </f7-list>
    <f7-popup id="popover-list">

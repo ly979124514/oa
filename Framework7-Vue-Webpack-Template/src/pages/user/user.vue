@@ -3,6 +3,10 @@
   <f7-navbar back-link="Back" title="我的" sliding></f7-navbar>
     <f7-list form v-if="!userStatus">
       <f7-list-item>
+        <f7-label>编号</f7-label>
+        <f7-input type="text" placeholder="编号" v-model="number" />
+      </f7-list-item>
+      <f7-list-item>
         <f7-label>姓名</f7-label>
         <f7-input type="text" placeholder="姓名" v-model="username" />
       </f7-list-item>
@@ -78,31 +82,34 @@ data () {
        this.$store.dispatch('getHttpServer',this.httpServer);
    },
    getAllUser: function () {
-     this.$http.get('http://172.31.0.31:8081/cat/getAllUser').then(function(response){
+     this.$http.get('http://172.31.0.31:8081/oa/getAllUser').then(function(response){
          this.$store.dispatch('write2json', response.data);
      })
    },
    Logon: function () {
-     this.$http.get('http://172.31.0.31:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
+     this.$http.get('http://172.31.0.31:8081/oa/selectUserByName?name='+this.username+'&&yhid='+this.number).then(function(response){
     // this.$http.get('http://192.168.1.10:8081/cat/selectByUserName?name='+this.username+'&&passwd='+this.passwd).then(function(response){
            //console.log(response.data);
-           if(this.username == response.data.userName && this.passwd == response.data.userPasswd)
+           //if(this.username == response.data.userName && this.passwd == response.data.userPasswd)
+           if(this.username == response.data[0].NAME && this.number == response.data[0].YHID)
            {
                // preState = true;
                // state.setState({flag:preState})
                 console.log(this.username);
                 //console.log(response.data);
                 this.hostInfo.username = this.username;
-                this.hostInfo.userId = response.data.id
-                this.hostInfo.mailAddress = response.data.mailAddress;
+                this.hostInfo.userId = this.number
+         //       this.hostInfo.mailAddress = response.data[0].mailAddress;
                 this.checkout(); 
                 this.$store.dispatch('checkUserName', this.hostInfo);
                 this.connectEvent(this.hostInfo);
                 //this.$store.dispatch('checkUserName',this.username, response.data.id);
            }
            else{
-                console.log('username = '+this.username+' user_name = '+response.data.userName);
-                console.log('passwd = '+this.passwd+' userPasswd = '+response.data.userPasswd);
+                console.log('username = '+this.username+' user_name = '+ response.data[0].NAME);
+                console.log(response.data);
+                console.log(response.data[0].NAME);
+                console.log('passwd = '+this.number+' number  = '+response.data[0].YHID);
                 f7.alert('用户名或密码错误！！','登录信息！');             
            }
      })

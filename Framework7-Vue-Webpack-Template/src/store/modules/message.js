@@ -21,7 +21,7 @@ const mutations = {
    [types.CONFIRM_USERNAME] (state, hostInfo) {
         state.logUser.username = hostInfo.username;
         state.logUser.userId = hostInfo.userId;
-        state.logUser.mailAddress = hostInfo.mailAddress
+//        state.logUser.mailAddress = hostInfo.mailAddress
    }
 }
 
